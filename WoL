@@ -1,0 +1,43 @@
+#!/bin/bash
+
+declare PATHTOSCRIPT="/home/poipoi/WoL.sh/WoL.original.sh"
+declare TommyPCMAC="00:D8:61:BE:DE:44"
+declare TommyPCIP="192.168.2.10"
+declare TommyPCPORT="9"
+
+declare defaultParams=" ${TommyPCMAC} ${TommyPCIP} ${TommyPCPORT}"
+
+#Param $2 determines which host to wake up. Therefore, this is the default host to wake up when
+#	no additional arguments are given
+if [ "$2" = "" ]; then
+	source $PATHTOSCRIPT $defaultParams
+	echo ""
+else
+	echo "does not support other hosts yet"
+fi
+
+#Device Resolution information setting. Make sure this matches with the argument you've given to the client installer
+case $1 in
+"phone")
+	hRes="3088"
+	declare vRes="1440"
+	;;
+"laptop")
+	declare hRes="2560"
+	declare vRes="1440"
+	;;
+*)
+	declare hRes="1920"
+	declare vRes="1080"
+	;;
+esac
+
+#Example of how to add a host, default port is 9:
+#
+#	declare HostNameMac="XX:XX:XX:XX:XX:XX"
+#	declare HostNameIP="192.168.0.1"
+#	declare HostNamePort="9"
+#	declare HostNameParams=" ${HostNameMac} ${HostNameIP} ${HostNamePort}
+#	if [ "$2" = ${HostName} ]; then
+#		source $PATHTOSCRIPT $HostNameParams
+#	fi
